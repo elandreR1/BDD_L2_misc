@@ -1,0 +1,6 @@
+ID_Colis,Ville_Origine,Ville_Destinataire,Prioritaire,Livraison,Cout_monetaire,Cout_carbone,Adresse_livraison
+C001,Paris,Lyon,TRUE,TRUE,20.5,3.2,"25 Rue de la Livraison"
+C002,Marseille,Toulouse,FALSE,FALSE,15.3,2.7,"30 Avenue de la Poste"
+C003,Nice,Bordeaux,TRUE,TRUE,18.9,3.5,"35 Boulevard des Colis"
+C004,Strasbourg,Nantes,FALSE,TRUE,22.1,3.9,"40 Rue du Transport"
+C005,Lille,Montpellier,TRUE,FALSE,16.8,3.1,"45 Avenue de la Distribution"

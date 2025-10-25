@@ -1,0 +1,41 @@
+Les valeurs de l’attribut c de R :
+πc (R)
+
+Les n-uplets de S dont l’attribut d vaut 400 : 
+σd= 400 (S)
+
+L’attribut b des n-uplets de S dont l’attribut d vaut 400 :
+πb (σd= 400 (S))
+
+Les n-uplets de S dont l’attribut d est entre 100 et 300 inclus :
+πb (σ(d≥ 100  ∧ d≤300 )(S))
+
+Les n-uplets de S dont l’attribut d vaut 100 ou 300 :
+πb (σ(d = 100  ∨ d=300 )(S))
+
+Les n-uplets de S dont l’attribut d est différent de 100 : 
+πb (σ(d ≠ 300 )(S))
+
+La table S dont l’attribut b est renommé en e : 
+ρe←b (S)
+
+Le produit cartésien entre R et S : 
+S ⨯ R
+
+Le produit cartésien entre la table R et elle-même : 
+(ρQ(R)) ⨯ R
+
+Les n-uplets de R et S qui sont égaux sur l’attribut b : 
+R ⨝ S
+
+CHECKPOINT Obtenez le même résultat que la requête précédente en utilisant uniquement
+la projection, la sélection et le produit cartésien :
+πa, R.b,c,d (σR.b=(S.b)(R⨯S))
+
+Obtenez les n-uplets qui sont présents dans S ou dans T :
+S ∪ T
+
+Obtenez les n-uplets qui sont présents dans S et également dans T : 
+S ∩ T
+
+Obtenez les n-uplets de R qui sont en jointure naturelle avec S, mais sans afficher les attributs de S :

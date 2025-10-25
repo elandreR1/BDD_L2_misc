@@ -1,0 +1,26 @@
+
+
+
+
+
+Commande d'insertion d'un nouveau n-uplet : 
+INSERT INTO `Personne` (`ID`, `Nom`, `Prenom`, `Age`) VALUES ('21', 'Doe', 'John', '25');
+
+Commande de création d'une nouvelle table :
+create table NOMDELATABLE (ID INTEGER, Cours VARCHAR(30), Inscription DATE, primary key (ID, Cours), foreign key (ID) references TABLE(Personne))
+
+Insertion d'un n-uplet dans une table :
+INSERT INTO Enseignement(ID, Cours, Inscription) VALUES(12, 'DSB', '2023-2-1')
+
+Pour supprimer une table :
+DROP TABLE Enseignement;
+DROP TABLE Personne;
+
+NB : Si une table contient une clé étrangère vers une autre table, il faut la détruire en première.
+
+Le format CSV est un format qui permet de stocker des données sous forme de tables en les séparant par des virgules. Par exemple LibreOffice Calc.
+
+
+La première ligne correspond aux attributs. Chaque donnée est séparée par des points virgules ;
+
+

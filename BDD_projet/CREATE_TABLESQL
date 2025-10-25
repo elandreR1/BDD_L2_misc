@@ -1,0 +1,59 @@
+CREATE TABLE COLIS (
+  ID_Colis           VARCHAR(42) NOT NULL,
+  Ville_Origine      VARCHAR(42),
+  Ville_Destinataire VARCHAR(42),
+  Prioritaire        VARCHAR(42),
+  Livraison          VARCHAR(42),
+  Cout_monetaire     VARCHAR(42),
+  Cout_carbone       VARCHAR(42),
+  Adresse            VARCHAR(42) NOT NULL,
+  PRIMARY KEY (ID_Colis),
+  FOREIGN KEY (Adresse) REFERENCES ENTREPOT (Adresse)
+);
+
+CREATE TABLE Contient (
+  ID_Colis     VARCHAR(42) NOT NULL,
+  Denomination VARCHAR(42) NOT NULL,
+  Quantite     VARCHAR(42),
+  PRIMARY KEY (ID_Colis, Denomination),
+  FOREIGN KEY (ID_Colis) REFERENCES COLIS (ID_Colis),
+  FOREIGN KEY (Denomination) REFERENCES ITEM (Denomination)
+);
+
+CREATE TABLE ENTREPOT (
+  Adresse    VARCHAR(42) NOT NULL,
+  Taille     VARCHAR(42),
+  Superficie VARCHAR(42),
+  PRIMARY KEY (Adresse)
+);
+
+CREATE TABLE ITEM (
+  Denomination VARCHAR(42) NOT NULL,
+  Poids        VARCHAR(42),
+  Taxe         VARCHAR(42),
+  PRIMARY KEY (Denomination)
+);
+
+CREATE TABLE MOYEN_DE_TRANSPORT (
+  Type                 VARCHAR(42) NOT NULL,
+  Cout_monetaire_au_km VARCHAR(42),
+  PRIMARY KEY (Type)
+);
+
+CREATE TABLE Transport (
+  ID_Colis     VARCHAR(42) NOT NULL,
+  Numero_SIREN VARCHAR(42) NOT NULL,
+  Type         VARCHAR(42) NOT NULL,
+  distance     VARCHAR(42),
+  PRIMARY KEY (ID_Colis, Numero_SIREN, Type),
+  FOREIGN KEY (ID_Colis) REFERENCES COLIS (ID_Colis),
+  FOREIGN KEY (Numero_SIREN) REFERENCES TRANSPORTEUR (Numero_SIREN),
+  FOREIGN KEY (Type) REFERENCES MOYEN_DE_TRANSPORT (Type)
+);
+
+CREATE TABLE TRANSPORTEUR (
+  Numero_SIREN VARCHAR(42) NOT NULL,
+  nom          VARCHAR(42),
+  adresse      VARCHAR(42),
+  PRIMARY KEY (Numero_SIREN)
+);

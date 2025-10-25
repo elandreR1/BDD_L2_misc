@@ -1,0 +1,126 @@
+1 Base bibliothèque :
+2 : 
+Les instructions de la question 2 suppriment de potentielles tables de données qui auraient un nom que l'on veut utiliser.
+Ensuite, les instructions initialisent à nouveau les 3 tables ainsi que leurs clés.
+Les clés primaires sont :
+- "cote" pour Livre
+- "nolecteur" pour Lecteur
+- "[cote, nolecteur]" pour Pret
+
+Et les clés étrangères :
+- "nolecteur" issue de Lecteur
+- "cote" issue de Livre
+
+4 :
+Les premières lignes suppriment des tables si elles existent déjà qui porteraient le même nom que celles qu'on veut créer. L'ordre est important car les tables qui contiennent des clés étrangères doivent être détruites en premier.
+
+2 Chargement des données :
+1 : Les commandes de type DELETE FROM "nomTable" vident ladite table, sans la détruire contrairement au DROP TABLE.
+
+3 Requêtes SQL : 
+1. Toutes les informations de la table LIVRE
+SELECT * FROM LIVRE
+
+2. Tous les auteurs de livres
+SELECT `AUTEUR` FROM `LIVRE` 
+
+3. Tous les auteurs de livres, mais sans doublons
+SELECT DISTINCT AUTEUR FROM `LIVRE` 
+
+4. Toutes les Cotes et titres des livres
+SELECT `COTE`,`TITRE` FROM `LIVRE` 
+
+5. Toutes les informations du LECTEUR numéro 13 
+SELECT * FROM `LECTEUR` WHERE `NOLECTEUR` = 13 
+
+6. Toutes les informations des lecteurs dont le numéro est inférieur strictement à 5 
+SELECT * FROM `LECTEUR` WHERE `NOLECTEUR` < 5 
+
+7. Toutes les informations du livre intitule ‘Agadamgorodok’ 
+SELECT * FROM `LIVRE` WHERE `TITRE` = "Agadamgorodok" (-> utiliser " pour les chaînes)
+
+8. Titres et auteurs des livres de la catégorie BD
+SELECT `TITRE`,`AUTEUR` FROM LIVRE WHERE CATEGORIE = "BD"
+24 lignes
+
+9. Titres et auteurs des livres de la catégorie Essai OU Divers
+SELECT `TITRE`,`AUTEUR` FROM LIVRE WHERE CATEGORIE = "Divers" OR CATEGORIE = "Essai"
+332 lignes
+
+10. (*) Titres et auteurs des livres de la catégorie Essai ET Divers. Pourquoi n’y a-t-il pas de
+réponse ?
+SELECT `TITRE`,`AUTEUR` FROM LIVRE WHERE CATEGORIE = "Divers" AND CATEGORIE = "Essai"
+Il n'y pas de réponse car aucun livre n'est renseigné comme à la fois dans la catégorie Divers et Essai.
+0 ligne
+
+11. Titres des livres de la catégorie Policier ET dont l’auteur est Fred Vargas 
+SELECT DISTINCT `TITRE` FROM LIVRE WHERE CATEGORIE = "Policier" AND AUTEUR = "Fred Vargas"
+NB : on a mis distinct pour supprimer les doublons
+5 lignes avec doublons, 3 sans
+
+12. Les cotes des livres empruntés par le lecteur 5
+SELECT COTE FROM PRET WHERE NOLECTEUR = 5
+4 lignes
+
+13. Les titres des livres empruntés par le lecteur 5
+SELECT DISTINCT LIVRE.TITRE FROM LIVRE NATURAL JOIN PRET WHERE NOLECTEUR = 5 
+lignes 4
+
+14. nom des lecteurs ayant emprunté le livre de cote JONQ01
+SELECT DISTINCT LECTEUR.NOM FROM LECTEUR NATURAL JOIN PRET NATURAL JOIN LIVRE WHERE COTE = "JONQ01"
+3 lignes
+
+15. Titre du livre et noms des lecteurs ayant emprunté le livre de cote JONQ01
+SELECT DISTINCT LECTEUR.NOM, LIVRE.TITRE FROM LECTEUR NATURAL JOIN PRET NATURAL JOIN LIVRE WHERE COTE = "JONQ01" 
+3 lignes
+
+16. (*) CHECKPOINT : le nom des lecteurs et les livres qu’ils ont empruntés 
+SELECT DISTINCT LECTEUR.NOM, LIVRE.TITRE FROM LECTEUR NATURAL JOIN PRET NATURAL JOIN LIVRE
+17 lignes (21 sans distinct)
+
+17. Le nom des lecteurs de livres de la catégorie Policier
+SELECT DISTINCT LECTEUR.NOM FROM LECTEUR NATURAL JOIN PRET NATURAL JOIN LIVRE WHERE CATEGORIE = "Policier" 
+6 lignes
+
+18. (*) Les paires de numéros de lecteurs (n1 ,n2 ) ayant emprunté le même livre
+SELECT DISTINCT PREM.NOLECTEUR, SECOND.NOLECTEUR FROM PRET PREM, PRET SECOND WHERE PREM.COTE = SECOND.COTE AND PREM.NOLECTEUR < SECOND.`NOLECTEUR` 
+4 lignes
+
+19. (*) Les paires de noms de lecteurs ayant emprunté le même livre
+SELECT DISTINCT L1.NOM, L2.NOM FROM (LECTEUR L1 NATURAL JOIN PRET P1) CROSS JOIN (LECTEUR L2 NATURAL JOIN PRET P2) WHERE P1.COTE = P2.COTE AND L1.NOLECTEUR < L2.`NOLECTEUR` 
+4 lignes
+
+20. Les noms des lecteurs dont le nom complet commence par un L (utiliser l’opérateur LIKE)
+SELECT NOM FROM LECTEUR WHERE NOM LIKE 'L%'
+2 lignes
+
+21. Les noms des lecteurs dont le nom complet commence par un L et termine par un e.
+SELECT NOM FROM LECTEUR WHERE NOM LIKE 'L%' AND NOM LIKE '%e'
+2 lignes
+
+22. Les noms des lecteurs situés avant vous dans l’ordre alphabétique (utiliser < sur les chaines).
+SELECT NOM FROM LECTEUR WHERE NOM < 'ORICELLI'
+8 avec Oricelli, 0 avec Andre
+
+23. Les noms des lecteurs et leur adresses, triés par ordre croissant du nom (tri).
+SELECT NOM, ADRESSE FROM LECTEUR ORDER BY NOM ASC
+14 lignes
+
+24. Les titres et catégories de livres, triés par ordre alphabétique décroissant de la catégorie
+puis par ordre croissant du titre (tri à plusieurs critères).
+SELECT TITRE, CATEGORIE FROM LIVRE ORDER BY CATEGORIE DESC, TITRE ASC
+712 lignes
+
+25. (*) Les noms des lecteurs ayant emprunté un livre (semi-jointure)
+SELECT DISTINCT NOM FROM LECTEUR NATURAL JOIN PRET
+6 lignes
+
+26. (*) Les noms des lecteurs ayant emprunté un livre de la catégorie policier
+SELECT DISTINCT NOM FROM LECTEUR NATURAL JOIN PRET NATURAL JOIN LIVRE WHERE CATEGORIE = 'Policier'
+6 lignes
+
+30. (**) Les noms des lecteurs n’ayant jamais emprunté de livre Policier (inexistence).
+SELECT DISTINCT L1.NOM FROM LECTEUR L1 WHERE L1.NOM NOT IN (SELECT L2.NOM FROM PRET NATURAL JOIN LIVRE NATURAL JOIN LECTEUR L2 WHERE CATEGORIE = 'Policier')
+8 lignes
+
+

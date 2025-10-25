@@ -1,0 +1,72 @@
+-- INSERT INTO ENTREPOT
+INSERT INTO ENTREPOT (Adresse, Superficie)
+VALUES 
+('1 Rue de la Poste', 500),
+('5 Avenue du Commerce', 700),
+('10 Rue des Transports', 1000),
+('15 Boulevard des Colis', 1200),
+('20 Avenue des Livraisons', 800);
+
+-- INSERT INTO ITEM
+INSERT INTO ITEM (Denomination, Masse)
+VALUES 
+('Livre', 200),
+('Ordinateur portable', 2500),
+('Vêtement', 300),
+('Bouteille de vin', 750),
+('Jeu de société', 1500);
+
+-- INSERT INTO MOYEN_DE_TRANSPORT
+INSERT INTO MOYEN_DE_TRANSPORT (Type, Cout_au_km)
+VALUES 
+('Avion', 0.5),
+('Bateau', 0.3),
+('Routier', 0.2),
+('Ferroviaire', 0.25);
+
+-- INSERT INTO TRANSPORTEUR
+INSERT INTO TRANSPORTEUR (Numero_SIREN, nom, adresse)
+VALUES 
+(123456789, 'Transport Express', '1 Rue de la Logistique'),
+(987654321, 'Livraisons Rapides', '5 Avenue de la Distribution'),
+(456789123, 'Transports Efficaces', '10 Boulevard des Services'),
+(789123456, 'Expéditions Sécurisées', '15 Rue du Transport'),
+(321654987, 'Logistique Fiable', '20 Avenue de la Livraison');
+
+-- INSERT INTO COLIS
+INSERT INTO COLIS (ID_Colis, Ville_Origine, Ville_Destinataire, Prioritaire, Livraison, Cout_monetaire, Cout_carbone, Adresse_livraison)
+VALUES 
+('C001', 'Paris', 'Lyon', TRUE, TRUE, 20.5, 3.2, '25 Rue de la Livraison'),
+('C002', 'Marseille', 'Toulouse', FALSE, FALSE, 15.3, 2.7, '30 Avenue de la Poste'),
+('C003', 'Nice', 'Bordeaux', TRUE, TRUE, 18.9, 3.5, '35 Boulevard des Colis'),
+('C004', 'Strasbourg', 'Nantes', FALSE, TRUE, 22.1, 3.9, '40 Rue du Transport'),
+('C005', 'Lille', 'Montpellier', TRUE, FALSE, 16.8, 3.1, '45 Avenue de la Distribution');
+
+-- INSERT INTO Contient
+INSERT INTO Contient (ID_Colis, Denomination, Quantite)
+VALUES 
+('C001', 'Livre', 2),
+('C001', 'Ordinateur portable', 1),
+('C002', 'Vêtement', 3),
+('C002', 'Bouteille de vin', 2),
+('C003', 'Jeu de société', 1),
+('C003', 'Livre', 1),
+('C004', 'Vêtement', 2),
+('C004', 'Bouteille de vin', 3),
+('C005', 'Jeu de société', 2),
+('C005', 'Livre', 3);
+
+-- INSERT INTO Transport
+INSERT INTO Transport (ID_Colis, Numero_SIREN, Type, distance)
+VALUES 
+('C001', 123456789, 'Avion', 500),
+('C001', 987654321, 'Routier', 600),
+('C002', 456789123, 'Ferroviaire', 700),
+('C002', 789123456, 'Bateau', 800),
+('C003', 321654987, 'Avion', 900),
+('C003', 123456789, 'Bateau', 1000),
+('C004', 987654321, 'Ferroviaire', 1100),
+('C004', 456789123, 'Routier', 1200),
+('C005', 789123456, 'Avion', 1300),
+('C005', 321654987, 'Routier', 1400);
+
